@@ -9,7 +9,7 @@ async function readJSON(filename) {
         return JSON.parse(data);
     } catch (err) {
         console.error(err);
-        throw err;
+        throw err; //stubbing
     }
 }
 
@@ -29,7 +29,7 @@ async function readAllStudents(req, res) {
         res.json(students); // Respond with JSON data
     } catch (error) {
         res.status(500).json({ message: 'Error reading students data', error: error.message });
-    }
+    } 
 }
 
 async function getStudentById(req, res) {

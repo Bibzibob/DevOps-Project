@@ -23,7 +23,7 @@ describe('Student API', () => {
     });
 
     // Test suite for getting all students
-    describe('GET /students', () => {
+    describe('Retrieve all Student information', () => {
         it('should retrieve all students', (done) => {
             chai.request(baseUrl)
                 .get('/students')
@@ -36,7 +36,7 @@ describe('Student API', () => {
     });
 
     // Test suite for getting a student by ID
-    describe('GET /students/:id', () => {
+    describe('Retrieve Student information by ID', () => {
         it('should retrieve a student by ID', (done) => {
             chai.request(baseUrl)
                 .get(`/students/${resourceId}`)
@@ -49,17 +49,31 @@ describe('Student API', () => {
     });
 
     // Test suite for updating a student
-    describe('PUT /students/:id', () => {
-        it('should update an existing student', (done) => {
-            chai.request(baseUrl)
-                .put(`/students/${resourceId}`)
-                .send({ firstName: 'Updated First Name' })  // Only updating firstName
-                .end((err, res) => {
-                    expect(res).to.have.status(200);  // Status OK
-                    expect(res.body.message).to.equal('Student updated successfully!');
-                    done();
-                });
-        });
+describe('Update Student information by ID', () => {
+    it('should update an existing student', (done) => {
+        const updatedStudent = {
+            admissionID: '2302776J', // Keeping original ID
+            firstName: 'Updated First Name',
+            lastName: 'Updated Last Name',
+            dateOfBirth: '2024-11-03',
+            gender: 'Female',
+            emailAddress: 'updatedemail@example.com',
+            phoneNumber: '9876543210',
+            course: 'Information Technology',
+            yearOfStudy: '3', // Assuming the year of study is updated
+            id: resourceId  // Use the existing student ID
+        };
+
+        chai.request(baseUrl)
+            .put(`/students/${resourceId}`)
+            .send(updatedStudent)  // Sending all the updated fields
+            .end((err, res) => {
+                expect(res).to.have.status(200);  // Status OK
+                expect(res.body.message).to.equal('Student updated successfully!');
+                done();
+            });
+    });
+
 
         it('should return 404 if the student does not exist', (done) => {
             const nonExistentId = 'non-existent-id';

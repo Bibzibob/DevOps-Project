@@ -4,14 +4,25 @@
   "description": "This is for project part 1 for DevOps",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "backend-test": "nyc --nycrc-path .nycrc-backend mocha",
+    "frontend-instrument": "xcopy public instrumented /I /E /Y & nyc instrument public instrumented",
+    "frontend-test": "rmdir -r .nyc_output & nyc --nycrc-path .nycrc-frontend cypress run",
+    "frontend-test-edge": "rmdir -r .nyc_output & nyc --nycrc-path .nycrc-frontend cypress run --browser edge",
+    "frontend-test-chrome": "rmdir -r .nyc_output & nyc --nycrc-path .nycrc-frontend cypress run --browser chrome",
+    "test": "npx mocha script/changename.mjs"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@cypress/code-coverage": "^3.12.18",
     "body-parser": "^1.20.3",
+    "cypress": "^13.16.1",
     "express": "^4.21.1",
-    "fs": "^0.0.1-security"
+    "fs": "^0.0.1-security",
+    "nyc": "^17.1.0",
+    "selenium-webdriver": "^4.27.0",
+    "sinon": "^19.0.2",
+    "sleep-promise": "^9.1.0"
   }
 }
